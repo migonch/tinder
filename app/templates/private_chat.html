@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <p>
+        {% for sender, msg in messages %}
+            <b>{{ sender.username }}</b>: {{ msg.body }}<br>
+        {% endfor %}
+    </p>
+    <form action="" method="post" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.message.label }}<br>
+            {{ form.message() }}
+        </p>
+        <p>{{ form.submit() }}</p>
+    </form>
+{% endblock %}

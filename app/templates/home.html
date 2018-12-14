@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if photo %}
+        <img src="{{ url_for('static', filename=photo) }}", width="460" height="345">
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            <p>
+                {% for subfield in form.like_or_dislike %}
+                    <tr>
+                        <td>{{ subfield }}</td>
+                        <td>{{ subfield.label }}</td>
+                    </tr>
+                {% endfor %}
+                {% for error in form.like_or_dislike.errors %}
+                    <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </p>
+            <p>{{ form.submit() }}</p>
+        </form>
+    {% else %}
+        No more candidates :(
+    {% endif %}
+{% endblock %}
