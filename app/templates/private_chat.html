@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <p>
-        {% for sender, msg in messages %}
-            <b>{{ sender.username }}</b>: {{ msg.body }}<br>
-        {% endfor %}
-    </p>
+    <div class="history">
+        Your message history will be displayed here
+    </div>
     <form action="" method="post" novalidate>
         {{ form.hidden_tag() }}
         <p>
@@ -14,4 +12,18 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
+    <button>Update History</button>
+    <input type="button" value="Reload Page" onClick="document.location.reload(true)">
+{% endblock %}
+{% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $("button").click(function(){
+        $.get("{{ url_for('history', recipient=recipient) }}", function (data) {
+            $("div.history").html(data);
+        });
+      });
+    });
+    </script>
 {% endblock %}

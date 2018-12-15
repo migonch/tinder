@@ -43,13 +43,6 @@ def home():
 @login_required
 def private_chat(recipient):
     user = User.query.filter_by(username=recipient).first_or_404()
-    #page = request.args.get('page', 1, type=int)
-    messages = private_messages(current_user.id, user.id)#.paginate(
-    #    page, app.config['MESSEGES_PER_PAGE'], False)
-    #next_url = url_for('private_chat', page=messages.next_num) \
-    #    if messages.has_next else None
-    #prev_url = url_for('private_chat', page=messages.prev_num) \
-    #    if messages.has_prev else None
     form = MessageForm()
     if form.validate_on_submit():
         msg = Message(author=current_user, recipient=user, body=form.message.data)
@@ -57,7 +50,14 @@ def private_chat(recipient):
         db.session.commit()
         flash('Your message has been sent')
         return redirect(url_for('private_chat', recipient=recipient))
-    return render_template('private_chat.html', title='Private Chat', form=form, messages=messages)
+    return render_template('private_chat.html', title='Private Chat', form=form, recipient=recipient)
+
+
+@app.route('/private_chat/<recipient>/history', methods=['GET'])
+def history(recipient):
+    user = User.query.filter_by(username=recipient).first_or_404()
+    messages = private_messages(current_user.id, user.id)
+    return render_template('_history.html', messages=messages)
 
 
 @app.route('/register', methods=['GET', 'POST'])
