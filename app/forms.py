@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired
 from wtforms import StringField, PasswordField, SubmitField, TextAreaField, BooleanField, RadioField
-from wtforms.validators import DataRequired, EqualTo, ValidationError, Length
+from wtforms.validators import DataRequired, EqualTo, ValidationError, Length, Email
 from app.models import User
 
 ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
@@ -9,7 +9,8 @@ ALLOWED_EXTENSIONS = ['png', 'jpg', 'jpeg', 'gif']
 
 class RegisterForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(message='Fill this field')])
-    name = StringField('Name', validators=[DataRequired(message='Fill this field')])
+    email = StringField('Email', validators=[DataRequired(message='Fill this field'),
+                                             Email('Please, specify correct email')])
     password = PasswordField('Password', validators=[DataRequired(message='Fill this field')])
     password2 = PasswordField(
         'Confirm Password',

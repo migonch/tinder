@@ -12,11 +12,11 @@
         </p>
         <p>{{ form.submit() }}</p>
     </form>
-    <button>Update History</button>
+    <button>Show history</button>
     <input type="button" value="Reload Page" onClick="document.location.reload(true)">
 {% endblock %}
 {% block scripts %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
     <script>
     $(document).ready(function(){
       $("button").click(function(){

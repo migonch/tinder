@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Your matches</h1>
+    {% for match in matches %}
+        <a href="{{ url_for('private_chat', recipient=match) }}">{{ match }}</a><br>
+    {%  endfor %}
+{% endblock %}

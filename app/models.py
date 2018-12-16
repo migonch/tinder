@@ -7,10 +7,11 @@ from datetime import datetime
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(64), index=True, unique=True)
-    name = db.Column(db.String(64))
+    email = db.Column(db.String(120), unique=True)
     password_hash = db.Column(db.String(128))
     extension = db.Column(db.String(10))
     description = db.Column(db.String(500))
+    confirmed = db.Column(db.Boolean, default=False)
 
     likes_from_me = db.relationship('Like',
                                     foreign_keys='Like.user_id',
@@ -88,4 +89,14 @@ def private_messages(user_id1, user_id2):
             ((Message.sender_id == user_id2) & (Message.recipient_id == user_id1))
         )
     ).order_by(Message.timestamp).all()
+
+
+def check_match(user_id1, user_id2):
+    db.session.query(Like).filter_by(user_id=user_id1, recipient_id=user_id2).first_or_404()
+    db.session.query(Like).filter_by(user_id=user_id2, recipient_id=user_id1).first_or_404()
+
+
+def get_matches_usernames(user_id):
+    return list(set([like.recipient.username for like in User.query.get(user_id).likes_from_me]) & \
+                set([like.user.username for like in User.query.get(user_id).likes_to_me]))
 

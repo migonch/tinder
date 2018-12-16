@@ -11,3 +11,7 @@ def make_shell_context():
         'Dislike': Dislike,
         'Message': Message
     }
+
+
+if __name__ == '__main__':
+    app.run(host='д', port=5000)
