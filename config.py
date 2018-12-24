@@ -9,10 +9,10 @@ class Config(object):
     PHOTO_FOLDER = 'users_photos'
     SECURITY_PASSWORD_SALT = os.urandom(16)
 
-    MAIL_SERVER = 'smtp.googlemail.com'
-    MAIL_PORT = 465
-    MAIL_USE_TLS = False
-    MAIL_USE_SSL = True
-    MAIL_USERNAME = 'goncharov.myu@phystech.edu'
-    MAIL_PASSWORD = 'firair1998'
+    MAIL_SERVER = 'relay.mipt.ru'
+    MAIL_PORT = 25
+    #MAIL_USE_TLS = False
+    #MAIL_USE_SSL = True
+    #MAIL_USERNAME = 'goncharov.myu@phystech.edu'
+    #MAIL_PASSWORD = 'firair1998'
     MAIL_DEFAULT_SENDER = 'goncharov.myu@phystech.edu'

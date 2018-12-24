@@ -14,4 +14,4 @@ def make_shell_context():
 
 
 if __name__ == '__main__':
-    app.run(host='д', port=5000)
+    app.run(host='10.55.200.178', port=5000)
